@@ -22,18 +22,21 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { Label } from "../ui/label";
+import { TimePicker } from "antd";
+import dayjs, { type Dayjs } from 'dayjs';
+import { useRef } from "react";
+import { Downtime } from "@/lib/types/type";
+import ConfigPrimary from "../ConfigPrimary";
 
 const formSchema = z.object({
   downondate: z.date({
     required_error: "A Downtime on date is required.",
   }),
-  downontime: z.string({
-    required_error: "A Downtime on time is required.",
+  downontime:z.instanceof(dayjs as unknown as typeof Dayjs,{
+    message:"A Downtime on time is required."
   }),
-  downtime: z.number({
-    required_error: "A Downtime is required.",
+  downtime: z.string().min(1, {
+    message: "A Downtime is required.",
   }),
   descrip: z.string().trim(),
   email: z
@@ -42,32 +45,39 @@ const formSchema = z.object({
     .email("This is not a valid email."),
   // .refine((e) => e === "abcd@fg.com", "This email is not in our database")
 });
-export default function CreateDowntimeForm() {
-  const [date, setDate] = useState<Date>();
+interface Props {
+  tab?: (value:any) => void
+  data: Downtime | ""
+  isData:boolean
+}
+
+export default function CreateDowntimeForm({tab,data,isData}: Props) {
+  const ref = useRef<HTMLFormElement>(null);
+  const formattime = 'HH:mm';
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       downondate: new Date(),
       downontime: "",
-      downtime: 0,
+      downtime: "",
       descrip: "",
       email: "",
     },
   });
-
+   
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log(values.downondate.toDateString());
   }
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 gap-8">
-        <div className="grid gap-2">
+      <Form {...form}>
+      <form ref={ref} onSubmit={form.handleSubmit(onSubmit)} className="grid md:grid-cols-2 gap-8 pt-4">
+        <div className="grid gap-4">
           <FormField
             control={form.control}
             name="downondate"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Downtime on date</FormLabel>
+                <FormLabel htmlFor="downondate">Downtime on date</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -90,6 +100,7 @@ export default function CreateDowntimeForm() {
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
+                      id="downondate"
                       selected={field.value}
                       onSelect={field.onChange}
                       disabled={(date) =>
@@ -107,10 +118,12 @@ export default function CreateDowntimeForm() {
             control={form.control}
             name="downontime"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Downtime on time</FormLabel>
-                <FormControl>
-                  <Input placeholder="down on time" {...field} />
+              <FormItem className="flex flex-col">
+                <FormLabel htmlFor="downno_time">Downtime on time</FormLabel>
+                <FormControl >
+                  <ConfigPrimary>
+                  <TimePicker id="downno_time" className="bg-transparent" minuteStep={30} hourStep={1} format={formattime} size="large" {...field} />
+                  </ConfigPrimary>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,10 +133,10 @@ export default function CreateDowntimeForm() {
             control={form.control}
             name="downtime"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Downtime</FormLabel>
+              <FormItem className="flex flex-col">
+                <FormLabel htmlFor="down_time">Downtime</FormLabel>
                 <FormControl>
-                  <Input placeholder="Downtime" {...field} />
+                  <Input placeholder="Downtime" id="down_time" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -131,16 +144,34 @@ export default function CreateDowntimeForm() {
           />
         </div>
         <div className="grid gap-6">
-          <div className="grid w-full">
-            <Label htmlFor="downtimedescription">Description</Label>
-            <Textarea placeholder="Type your description here." id="downtimedescription" />
-          </div>
-          <div className="grid w-full">
-            <Label htmlFor="downtimeemail">Email</Label>
-            <Textarea placeholder="Type your email here." id="downtimeemail" />
-          </div>
+          <FormField
+              control={form.control}
+              name="descrip"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel htmlFor="downtimedescription">Description</FormLabel>
+                  <FormControl>
+                  <Textarea placeholder="Type your description here." id="downtimedescription" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel htmlFor="downtimeemail">Email</FormLabel>
+                <FormControl>
+                <Textarea placeholder="Type your email here." id="downtimeemail" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="max-w-[300px]">Submit</Button>
       </form>
     </Form>
   );

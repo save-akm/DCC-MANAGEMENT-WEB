@@ -10,8 +10,8 @@ export default function MonthlyTable() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          <p>Plan & Actual Daily Report</p>
+        <CardTitle className="text-xl">
+          Plan & Actual Daily Report
         </CardTitle>
       </CardHeader>
       <CardContent>

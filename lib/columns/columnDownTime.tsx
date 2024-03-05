@@ -12,6 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Downtime } from "../types/type";
 import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
+import DeleteAlert from "@/components/Card/DeleteAlert";
+import { useRef } from "react";
+import EditDownTime from "@/components/form/EditDownTime";
 
 export const columnsDownTime: ColumnDef<Downtime>[] = [
   {
@@ -128,8 +131,22 @@ export const columnsDownTime: ColumnDef<Downtime>[] = [
     },
     cell: ({ row }) => {
       const downstsDesc: string = row.getValue("downstsDesc");
-
-      return <div className="text-right font-medium">{downstsDesc}</div>;
+      const cellStyle = () => {
+        const colorText = downstsDesc === "Time out" ? "#f80d0d" : "#36a20e";
+        const colorBg = downstsDesc === "Time out" ? "#ffc2c2" : "#bcf89e";
+        return {
+          color: colorText,
+          backgroundColor: colorBg,
+        };
+      };
+      return (
+        <button
+          style={cellStyle()}
+          className="tracking-wide font-medium py-1 px-3 rounded-md"
+        >
+          {downstsDesc}
+        </button>
+      );
     },
   },
   {
@@ -184,9 +201,10 @@ export const columnsDownTime: ColumnDef<Downtime>[] = [
   {
     // id: "actions",
     header: "Actions",
-    cell: ({ row }) => {
+    cell: function Actions ({ row }) {
       const downtime = row.original;
-
+      const refForm = useRef<HTMLFormElement>(null);
+      const refDelete = useRef<HTMLButtonElement>(null);
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -196,18 +214,26 @@ export const columnsDownTime: ColumnDef<Downtime>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(downtime.emaillst.toString())
-              }
-            >
-              Copy EMAIL LIST
-            </DropdownMenuItem>
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Detail</DropdownMenuItem>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <div className="flex flex-col gap-1">
+              <DropdownMenuItem asChild>
+                <Button
+                  variant="outline"
+                  onClick={() =>
+                    navigator.clipboard.writeText(downtime.emaillst.toString())
+                  }
+                >
+                  Copy Email List
+                </Button>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                  <EditDownTime ref={refForm} data={downtime}/>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <DeleteAlert ref={refDelete} />
+              </DropdownMenuItem>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       );

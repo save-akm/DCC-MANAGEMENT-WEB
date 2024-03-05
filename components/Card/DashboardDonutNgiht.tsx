@@ -29,8 +29,12 @@ ChartJS.register(
     Legend,
     ArcElement
 )
+interface Props {
+    dataDay:number[],
+    dataDayPer:string[]
+}
 
-export default function DashboardDonutNgiht()
+export default function DashboardDonutNgiht({dataDay,dataDayPer}: Props)
 {
     const [chartData,setChartData] = useState<any>({
         datasets:[],
@@ -44,9 +48,9 @@ export default function DashboardDonutNgiht()
             labels:['Actual','Pending'],
             datasets:[{
                 label:'value',
-                data:[64,37],
+                data:dataDay,
                 borderColor:['rgba(153, 102, 255)','rgba(75, 192, 192)'],
-                backgroundColor:[`rgba(153, 102, 255,${theme === 'dark' ? 1 : 0.6}`,`rgba(75, 192, 192,${theme === 'dark' ? 1 : 0.6})`]
+                backgroundColor:[`rgba(153, 102, 255,${theme === 'dark' ? 1 : 0.8}`,`rgba(75, 192, 192,${theme === 'dark' ? 1 : 0.8})`]
             },
         ],
         })
@@ -87,7 +91,8 @@ export default function DashboardDonutNgiht()
                 },
             }
         })
-    },[theme])
+    },[dataDay, theme])
+    
     return <Card className='w-full'>
     <CardHeader>
         <CardTitle className='text-xl'>Receive</CardTitle>

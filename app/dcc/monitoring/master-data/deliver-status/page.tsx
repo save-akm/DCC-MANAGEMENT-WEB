@@ -1,6 +1,8 @@
-
+import DeliverStatusTab from "@/components/DeliverStatusTab";
 
 export default function page()
 {
-    return <div>Master Data Deliver Status</div>;
+    return <div className="grid grid-cols-1">
+        <DeliverStatusTab />
+    </div>;
 }

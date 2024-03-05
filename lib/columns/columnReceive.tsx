@@ -1,20 +1,12 @@
 "use client"
  
 import { ColumnDef } from "@tanstack/react-table"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { PlanActual } from "../types/type"
-import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { ReceiveInQuiry } from "../types/type"
+import { CaretSortIcon } from "@radix-ui/react-icons"
 
  
-export const columnsReceive: ColumnDef<PlanActual>[] = [
+export const columnsReceive: ColumnDef<ReceiveInQuiry>[] = [
   {
     accessorKey: "production_Month",
     header: ({ column }) => {
@@ -196,35 +188,6 @@ export const columnsReceive: ColumnDef<PlanActual>[] = [
       const iscomplete:string = row.getValue("isCompletedDesc")
   
       return <div className="text-right font-medium">{iscomplete}</div>
-    },
-  },
-  {
-    // id: "actions",
-    header: "Actions",
-    cell: ({ row }) => {
-      const plan = row.original
- 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(plan.delivery_slip.toString())}
-            >
-              Copy DLV SLIP
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
     },
   },
 ]

@@ -12,11 +12,15 @@ import Setting from '../Setting'
 import { MenuSidebar } from '@/lib/types/type'
 import { MenuItem } from '@/lib/types/interface'
 import MenuLink from './MenuLink'
+import {useAppSelector} from '@/redux/hooks'
+
 
 const Sidebar = () => {
- 
+  const isOpen =  useAppSelector((state) => state.sidebarSlice.open)
+
+  
   return (
-    <div className='fixed flex flex-col w-72 gap-4 min-w-72 border-r min-h-screen p-4'>
+    <nav className={`fixed hidden lg:flex flex-col w-72 gap-4 min-w-72 border-r min-h-screen p-4 transition-all duration-300`}>
       <div className=''>
         <UserItem />
       </div>
@@ -34,7 +38,7 @@ const Sidebar = () => {
        </Command>
       </div>
       <Setting />
-    </div>
+    </nav>
   )
 }
 

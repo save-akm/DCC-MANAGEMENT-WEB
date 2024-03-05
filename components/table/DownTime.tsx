@@ -65,10 +65,11 @@ export default function DownTime<TData, TValue>({
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
+          id="downtimeemaillist"
           placeholder="Filter EMAIL LIST ..."
           value={(table.getColumn("emaillst")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("parts_no")?.setFilterValue(event.target.value)
+            table.getColumn("emaillst")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

@@ -28,12 +28,12 @@ export default function Header()
         },
     ]);
 
-    return <div className="grid grid-cols-2 gap-4 py-4 px-6 border-b">
+    return <div className="grid grid-cols-2 gap-4 py-4 px-8 border-b">
         <div className='flex items-center gap-4 overflow-hidden'>
             <ToggleSidebar />
             <p className='capitalize text-lg font-bold tracking-wide truncate'>DCC MANAGEMENT</p>
         </div>
-        <div className="flex gap-3 items-center justify-end">
+        <div className="flex gap-2 md:gap-3 items-center justify-end pr-9 lg:pr-0">
             <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button className="relative hover:border-hLas hover:border-2" variant="outline" size="icon">

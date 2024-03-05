@@ -28,8 +28,17 @@ ChartJS.register(
     Legend,
 )
 
+interface Props{
+    cat:string[]
+    series:{
+        name:string
+        data:number[]
+        dataA:number[]
+        dataB:number[]
+    }[]
+}
 
-export default function DashboardBarChart()
+export default function DashboardBarChart({cat,series} : Props)
 {
     const { theme } = useTheme();
     const [chartData,setChartData] = useState<any>({
@@ -42,18 +51,18 @@ export default function DashboardBarChart()
 
     useEffect(() => {
         setChartData({
-            labels:['Mon','True','Wed','Thurs','Fri','Sat','Sun'],
+            labels:cat,
             datasets:[{
-                label:'Actual',
-                data:[18127,22201,19490,17938,24182,17842,22475],
-                borderColor:'rgb(53,162,235)',
-                backgroundColor:'rgb(26,90,235,0.6)'
+                label:series[1].name,
+                data:series[1].data,
+                borderColor:'rgb(144, 91, 204)',
+                backgroundColor:'rgb(144, 91, 204,0.8)'
             },
             {
-                label:'Plan',
-                data:[18127,22201,19490,17938,24182,17842,22475],
-                borderColor:'rgb(255,99,132)',
-                backgroundColor:'rgb(255,99,132,0.6)'
+                label:series[0].name,
+                data:series[0].data,
+                borderColor:'rgb(41, 113, 160)',
+                backgroundColor:'rgb(142, 193, 225,1)'
             }
         ]
         })
@@ -94,7 +103,7 @@ export default function DashboardBarChart()
                 },
             }
         })
-    },[theme])
+    },[cat, series, theme])
 
     return <Card className='w-full'>
             <CardHeader>

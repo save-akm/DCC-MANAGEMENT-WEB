@@ -71,10 +71,10 @@ export default function InquiryReceive() {
                 control={form.control}
                 name="po"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>PO NO</FormLabel>
+                  <FormItem className="flex flex-col">
+                    <FormLabel htmlFor="pono">PO NO</FormLabel>
                     <FormControl>
-                      <Input placeholder="PO NO" {...field} />
+                      <Input id="pono" placeholder="PO NO" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -84,10 +84,10 @@ export default function InquiryReceive() {
                 control={form.control}
                 name="part"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>PARTS NO</FormLabel>
+                  <FormItem className="flex flex-col">
+                    <FormLabel htmlFor="partno">PARTS NO</FormLabel>
                     <FormControl>
-                      <Input placeholder="PARTS NO" {...field} />
+                      <Input id="partno" placeholder="PARTS NO" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -98,9 +98,9 @@ export default function InquiryReceive() {
                 name="receive_date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col self-end">
-                    <FormLabel>RECEIVE DATE</FormLabel>
+                    <FormLabel htmlFor="receivedate">RECEIVE DATE</FormLabel>
                     <Popover>
-                      <PopoverTrigger asChild>
+                      <PopoverTrigger id="receivedate" asChild>
                         <Button
                           variant={"outline"}
                           className={cn(

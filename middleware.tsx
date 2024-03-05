@@ -2,22 +2,33 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
  
 export function middleware(request: NextRequest) {
-  let cookie = request.cookies.get('nextjs')
-  
-  request.cookies.has('nextjs') 
-  request.cookies.delete('nextjs')
-  request.cookies.has('nextjs')
- 
-  const response = NextResponse.next()
-  response.cookies.set('vercel', 'fast')
-  response.cookies.set({
-    name: 'vercel',
-    value: 'fast',
-    path: '/',
-  })
-  cookie = response.cookies.get('vercel')
- 
-  return response
+
+  try{
+
+    const token = request.cookies.get("auth")?.value
+    const date = Date.now()
+     
+    // if(date > parseInt(token))
+    // {   
+    //     return NextResponse.redirect(new URL('/auth/login',request.url))
+    // }
+    // else
+    // {
+    //     const requestHeaders = new Headers(request.headers);
+    //      requestHeaders.set('user',JSON.stringify({id:payload.id,role:payload.role,roleName:payload.roleName}));
+    //     const response =  NextResponse.next({
+    //     request:{
+    //       headers:requestHeaders
+    //     }
+    //     }) 
+
+    //     return response 
+    // }
+    
+  }
+  catch(error){
+    return NextResponse.redirect(new URL('/auth/login',request.url))
+  }
 }
 
 export const config = {

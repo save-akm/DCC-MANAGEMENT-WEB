@@ -9,6 +9,23 @@ const config = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
 	],
+  sans: [
+    "Inter",
+    "ui-sans-serif",
+    "system-ui",
+    "-apple-system",
+    "system-ui",
+    "Segoe UI",
+    "Roboto",
+    "Helvetica Neue",
+    "Arial",
+    "Noto Sans",
+    "sans-serif",
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -21,6 +38,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        
       },
       colors: {
         purpleHot:{
@@ -66,6 +84,8 @@ const config = {
           '600': '#dd7419',
         },
         hLas:"#35999f",
+        textInActive:"#44a1ed",
+        textActive:"#26de81",
         greenLemon:"#beee11",
         textSoft: "#b7bac1",
         textSmall:"#57606f",

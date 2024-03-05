@@ -64,6 +64,7 @@ export default function MonthlyNotComplete<TData, TValue>({
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
+          id="filterpartno"
           placeholder="Filter PART NO ..."
           value={(table.getColumn("parts_no")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
@@ -86,6 +87,7 @@ export default function MonthlyNotComplete<TData, TValue>({
               .map((column) => {
                 return (
                   <DropdownMenuCheckboxItem
+                  
                     key={column.id}
                     className="capitalize"
                     checked={column.getIsVisible()}

@@ -64,6 +64,7 @@ export default function MonthlyEarlyReceive<TData, TValue>({
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
+          id="partnoearly"
           placeholder="Filter PART NO ..."
           value={(table.getColumn("parts_no")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>

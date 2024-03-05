@@ -24,7 +24,7 @@ export default function LoginForm()
     const [state,formAction ] = useFormState(loginAction,initState);
 
 
-    return <form action={async formData => {
+    return <form  action={async formData => {
       formAction(formData)
       ref.current?.reset()
     }} ref={ref} className='space-y-6'>

@@ -30,7 +30,11 @@ ChartJS.register(
     ArcElement
 )
 
-export default function DashboardDonutDay()
+interface Props {
+    dataDay:number[],
+    dataDayPer:string[]
+}
+export default function DashboardDonutDay({dataDay,dataDayPer} :Props)
 {
     const [chartData,setChartData] = useState<any>({
         datasets:[],
@@ -44,12 +48,13 @@ export default function DashboardDonutDay()
             labels:['Actual','Pending'],
             datasets:[{
                 label:'value',
-                data:[64,37],
+                data:dataDay,
                 borderColor:['rgb(255,99,132)','rgb(255,159,64)'],
-                backgroundColor:[`rgb(255,99,132,${theme === 'dark' ? 1 : 0.6})`,`rgb(255,159,64,${theme === 'dark' ? 1 : 0.6})`]
+                backgroundColor:[`rgb(255,99,132,${theme === 'dark' ? 1 : 0.8})`,`rgb(255,159,64,${theme === 'dark' ? 1 : 0.8})`]
             },
         ],
         })
+        
         setChartOptions({
             plugins:{
                 legend:{
@@ -86,7 +91,7 @@ export default function DashboardDonutDay()
                 },
             }
         })
-    },[theme])
+    },[dataDay, theme])
     return <Card className='w-full'>
     <CardHeader>
         <CardTitle className='text-xl'>Receive</CardTitle>

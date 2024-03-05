@@ -1,6 +1,8 @@
 
 import InquiryReceive from '@/components/form/InquiryReceive';
-import TableComponent from '@/components/table/Table';
+import ReceiveInquiry from '@/components/table/ReceiveInquiry';
+import { columnsReceive} from '@/lib/columns/columnReceive'
+import { receiveInquiry } from '@/lib/mockData'
 
 export default function Receive()
 {
@@ -10,7 +12,7 @@ export default function Receive()
             <InquiryReceive />
         </div>
         <div className='grid grid-cols-1'>
-            <TableComponent table_name='early' title='INQUIRY RECEIVE DATA' />
+            <ReceiveInquiry columns={columnsReceive} data={receiveInquiry} />
         </div>
     </div>
 }

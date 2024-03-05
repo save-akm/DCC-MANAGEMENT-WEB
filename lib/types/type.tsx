@@ -1,4 +1,4 @@
-import { AllProcess, MenuItem } from "./interface"
+import { AllProcess, AllStatus, MenuItem, MonitorDock, ProcessList, SelectDockList } from "./interface"
 
 export type PlanActual = {
     id: string
@@ -24,19 +24,25 @@ export type Table = {
 }
 
 export type ReceiveInQuiry = {
-    production_Month:string
-    delivery_Slip:string
-    parts_No:string
-    parts_Colour:string
-    supplier_name:string
-    order_Qty:number
-    received_Qty:number
-    dlVdateF:string
-    reCdateF:string
-    delivery_DockNo:string
-    received_DockNo:string
-    diff:string
-    isCompletedDesc:string
+    production_Month: string,
+    delivery_Datetime: string,
+    dlVdateF: string,
+    delivery_Slip: string,
+    parts_No: string,
+    parts_Colour: string,
+    supplier_Code: number,
+    supplier_Tag: string,
+    supplier_name: string,
+    received_Qty: number,
+    order_Qty: number,
+    diff: number,
+    received_Datetime: string,
+    reCdateF: string,
+    delivery_DockNo: null,
+    received_DockNo: null,
+    received_User: null,
+    isCompleted: true,
+    isCompletedDesc: string
 }
 
 export type Downtime = {
@@ -72,4 +78,103 @@ export type Downtime = {
 
 export type CreateDialog = {
     title:string
+}
+
+export type Monitor = {
+    monitrid: string,
+    ipaddr: string,
+    clientid: string,
+    clientse: string,
+    process: string,
+    recdate: string,
+    rectime: string,
+    recempid: string,
+    upddate: string,
+    updempid: string,
+    alldock: string,
+    selectdockList: SelectDockList[],
+    processList: ProcessList[],
+    monitrdock: MonitorDock[]
+}
+
+export type BreakTime = {
+    montrid: string,
+    brkstrt: string,
+    brkendt: string,
+    positin: number,
+    mdurl: string,
+    monitors: null,
+    mdurLs: null
+}        
+
+export type DeliverStatus = {
+    timeamt: number,
+    process: string,
+    processrec: boolean,
+    processpic: boolean,
+    processdlv: boolean,
+    processrecValue: string,
+    processpicValue: string,
+    processdlvValue: string,
+    crtdate: string,
+    crttime: string,
+    crtby: string,
+    allProcess: AllProcess[]
+    allStatus:AllStatus[]
+    status: string,
+    processList: ProcessList[]
+}
+
+export type MasterZone = {
+    dlvmnt: string,
+    dlvzne: string,
+    montip: string,
+    pikflg: number,
+    dlvflg: number,
+    crtdte: number,
+    crttme: number,
+    crtusr: string,
+    upddte: number,
+    updtme: number,
+    updusr: string
+}
+
+export type AdjustTime = {
+    $id:string
+    D3NUMID: string,
+    D3NUMBE: string,
+    D3TYPET: string,
+    D3ZONEM: string
+}
+
+export type PickingDelivery = {
+    pklno: string,
+    cpino: string,
+    dcptno: string,
+    prtdsc: null,
+    prtclr: string,
+    sppcde: string,
+    pcrqty: number,
+    dlvqty: number,
+    dlvzne: string,
+    dlvdte: number,
+    dlvtme: number,
+    kdltfr:string,
+    picdte: number,
+    pictme: number,
+    dlvmnt: string,
+    splcsh: string,
+    picscn: string,
+    dlvscn: string
+}
+
+export type MonitorAll =  {
+    dcptno: string,
+    prtclr: string,
+    splcsh: string,
+    dlvqty: string,
+    dlvzne: string,
+    kdltfr: string,
+    picdte: string,
+    pictme: string
 }

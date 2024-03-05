@@ -22,7 +22,7 @@ export default function MenuLink({ item }: any) {
               <AccordionTrigger className="pl-4 hover:no-underline">
                 <div
                   className={`${
-                    item.link === pathname ? "font-bold text-blueHot-500" : ""
+                    pathname.includes(item.link) ? "font-bold text-blueHot-500" : ""
                   } flex gap-4 cursor-pointer group`}
                 >
                   <span className="group-hover:text-blueHot-500 group-hover:animate-bounce">
@@ -48,7 +48,7 @@ export default function MenuLink({ item }: any) {
                         <div
                           className={`h-[8px] w-[8px] rounded-full my-1 bg-blueHot-400`}
                         ></div>
-                        <span className="group-hover:text-blueHot-500 group-hover:font-medium tracking-wide">
+                        <span className="group-hover:text-blueHot-500 tracking-wide">
                           {subItem.title}
                         </span>
                       </Link>
@@ -69,7 +69,7 @@ export default function MenuLink({ item }: any) {
             <span className="group-hover:text-blueHot-500 group-hover:animate-bounce">
               {item.icon}
             </span>
-            <span className="group-hover:text-blueHot-500 group-hover:font-medium tracking-wide">
+            <span className="group-hover:text-blueHot-500 tracking-wide">
               {item.text}
             </span>
           </Link>

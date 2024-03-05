@@ -28,7 +28,9 @@ export async function loginAction (prevState:any,formData:FormData) {
   const timestamp:any = Date.parse(parsedStr);
   
   if(response.status === 200) {
-     cookies().set('token',timestamp);
+     cookies().set('token',response.data.AuthenToken);
+     cookies().set('auth',timestamp);
+ 
      redirect('/dcc/monitoring/dashboard');
   }
   else
@@ -39,4 +41,6 @@ export async function loginAction (prevState:any,formData:FormData) {
 
 export async function logoutAction (prevState:any,formData:FormData) {
   cookies().delete('token')
+  console.log("sssss");
+  return {message:"Logout success"}
 }

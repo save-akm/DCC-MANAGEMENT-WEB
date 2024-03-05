@@ -23,8 +23,8 @@ import {
 } from "@/components/ui/popover";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 const FormSchema = z.object({
-  period: z.coerce.number({
-    required_error: "Period Times is required.",
+  period: z.coerce.number().min(1,{
+    message:"A Period is required."
   }),
 });
 import { Input } from "../ui/input";
@@ -36,7 +36,7 @@ export default function DateRangeForm() {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(Date.now()),
     to: addDays(new Date(Date.now()), 7),
-  });
+  }); 
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -67,14 +67,14 @@ export default function DateRangeForm() {
             <div className="flex flex-col sm:flex-row gap-4">
               <FormField
                 control={formDate.control}
-                name=""
+                name="produckdate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Production Date Range</FormLabel>
+                    <FormLabel htmlFor="daterange">Production Date Range</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
-                          id="date"
+                          id="daterange"
                           variant={"outline"}
                           className={cn(
                             "w-[300px] justify-start text-left font-normal gap-4 group",
@@ -116,9 +116,9 @@ export default function DateRangeForm() {
                 name="period"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Period Times (Minutes)</FormLabel>
+                    <FormLabel htmlFor="monthly_period">Period Times (Minutes)</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="Period" {...field} />
+                      <Input id="monthly_period" type="number" placeholder="Period" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

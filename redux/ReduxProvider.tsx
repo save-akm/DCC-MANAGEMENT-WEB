@@ -1,12 +1,21 @@
 'use client';
 
-import React from "react";
+import { useRef } from 'react'
 import { Provider } from 'react-redux'
-import { store } from "./store";
+import { AppStore,makeStore } from "./store";
+import {initialStateAdjust} from './AdjustTimeSlice'
+import { AdjustTime } from '@/lib/types/type';
 
-export default function ReduxProvider({children}:Readonly<{children:React.ReactNode}>)
+export default function ReduxProvider({children}:Readonly<{
+    children:React.ReactNode
+    
+}>)
 {
-    return <Provider store={store}>
-        {children}
-    </Provider>
+    const storeRef = useRef<AppStore>()
+    if (!storeRef.current) {
+        // Create the store instance the first time this renders
+        storeRef.current = makeStore()
+        
+      }
+    return <Provider store={storeRef.current}>{children}</Provider>
 }
